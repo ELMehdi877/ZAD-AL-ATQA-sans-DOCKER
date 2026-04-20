@@ -17,7 +17,7 @@
             <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">{{ $students->count() }} enfant(s)</span>
         </div>
 
-        <div class="overflow-hidden rounded-lg border border-slate-200">
+        <div class="overflow-x-auto rounded-lg border border-slate-200">
             <table class="min-w-full text-sm">
                 <thead class="bg-slate-100 text-slate-700">
                     <tr>

@@ -39,18 +39,18 @@
                 <div class="flex items-center gap-3">
                     <img src="{{ asset('images/logo.png') }}" alt="Zad Al Atqa" class="h-12 w-auto object-contain">
                     <div class="flex flex-col leading-tight">
-                        <span class="text-white font-extrabold text-xl tracking-tight">Zad Al Atqa</span>
-                        <span class="text-[#d4af37] text-[10px] font-bold tracking-[0.2em] uppercase">Mémorisation Sacrée</span>
+                        <span class="text-white font-extrabold text-sm md:text-xl tracking-tight">Zad Al Atqa</span>
+                        <span class="text-[#d4af37] md:text-[10px] text-[8px] font-bold tracking-[0.2em] uppercase">Mémorisation Sacrée</span>
                     </div>
                 </div>
 
                 <!-- Desktop Nav -->
-                <nav class="hidden md:flex items-center gap-8">
+                <nav class="items-center gap-8">
                     @auth
                         <a href="{{ url('/dashboard') }}" class="text-white hover:text-[#d4af37] font-semibold transition">Tableau de bord</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-white hover:text-[#d4af37] font-semibold transition text-sm">Connexion</a>
-                        <a href="{{ route('register') }}" class="bg-[#d4af37] hover:bg-[#b8952d] text-[#04371f] px-6 py-2.5 rounded-[9px] font-bold transition shadow-lg shadow-black/20 text-sm">S'inscrire</a>
+                        <a href="{{ route('login') }}" class="text-white hover:text-[#d4af37] font-semibold transition text-[8px] md:text-sm">Connexion</a>
+                        <a href="{{ route('register') }}" class="bg-[#d4af37] hover:bg-[#b8952d] text-[#04371f] md:px-6 md:py-2.5 px-3 py-1.5 rounded-[9px] font-bold transition shadow-lg shadow-black/20 text-[8px] md:text-sm">S'inscrire</a>
                     @endauth
                 </nav>
 

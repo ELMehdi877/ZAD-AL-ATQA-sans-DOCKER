@@ -8,7 +8,7 @@
 
         <!-- Tableau des participations -->
         @if($participations->count() > 0)
-            <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="bg-white rounded-lg shadow overflow-x-auto">
                 <table class="w-full">
                     <!-- En-têtes du tableau -->
                     <thead class="bg-gray-100 border-b">

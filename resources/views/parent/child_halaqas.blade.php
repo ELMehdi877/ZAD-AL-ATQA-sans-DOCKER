@@ -13,7 +13,7 @@
         </div>
     </header>
 
-        <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="bg-white rounded-lg shadow overflow-x-auto">
             <table class="w-full text-sm">
                 <thead class="bg-gray-100 border-b">
                     <tr>
