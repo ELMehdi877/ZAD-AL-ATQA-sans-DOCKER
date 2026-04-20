@@ -14,16 +14,16 @@
             'href' => null,
             'is_link' => false,
         ]];
-   $messageTextClasses = 'whitespace-pre-wrap break-all text-[14px] leading-[1.55] lg:text-[15px]';
+   $messageTextClasses = 'whitespace-pre-wrap break-all text-[10px] leading-[1.55] lg:text-[12px]';
    $receiver = $belongsToAuth ? $conversation->getReceiver() : null;
    $isRead = $belongsToAuth && $receiver && $conversation->participant($receiver)?->conversation_read_at >= $message->created_at;
 @endphp
 
 <div
 @class([
-    'relative flex min-w-[140px] max-w-fit flex-col gap-1 px-3.5 py-2 shadow-[0_1px_2px_rgba(0,0,0,0.08)]',
+    'relative flex min-w-[140px] max-w-fit flex-col px-3.5 py-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.08)]',
     'self-end rounded-[15px] rounded-tr-[1px] bg-[#175c37] text-white' => $belongsToAuth,
-    'self-start rounded-[22px] rounded-bl-[7px] border border-[#ebe1c9] bg-[#f4ecd8] text-[#2d271a]' => !$belongsToAuth,
+    'self-start rounded-[15px] rounded-bl-[1px] border-[1px] border-[#A8A8A8] bg-[#FFFFFF] text-[#253E7E]' => !$belongsToAuth,
 ])
 >
 @if (!$isSameAsNext)
@@ -47,7 +47,7 @@
 
 <pre
     dusk="message-text"
-    class="{{ $messageTextClasses }} {{ $belongsToAuth ? 'text-white' : 'text-[#2d271a]' }}"
+    class="{{ $messageTextClasses }} {{ $belongsToAuth ? 'text-white' : 'text-gray-700' }}"
     dir="auto"
     style="font-family: inherit;">@foreach ($segments as $segment)@if ($segment['is_link'])<a
                 dusk="message-link"
