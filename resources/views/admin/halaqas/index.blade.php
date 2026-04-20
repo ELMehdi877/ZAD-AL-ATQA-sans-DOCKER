@@ -12,7 +12,7 @@
         <a href="{{ route('halaqas.create') }}" class="rounded-lg bg-white/20 px-4 py-2 text-sm font-medium text-white hover:bg-white/30 backdrop-blur-sm transition">Nouvelle halaqa</a>
     </header>
 
-    <section class="overflow-hidden rounded-xl bg-white shadow">
+    <section class="overflow-x-auto rounded-xl bg-white shadow">
         <table class="min-w-full border-collapse text-sm">
             <thead>
                 <tr class="border-b bg-slate-50 text-left">
