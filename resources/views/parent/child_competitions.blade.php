@@ -3,9 +3,8 @@
 @section('title', 'Compétitions de l\'enfant')
 
 @section('content')
-<div class="px-2 sm:px-4 py-4">
     <!-- Header Premium -->
-    <header class="mb-8 rounded-2xl bg-gradient-to-r from-[#04371f] to-[#04371f]/80 p-6 text-white shadow-xl flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <header class="mb-6 rounded-2xl bg-gradient-to-r from-[#04371f] to-[#04371f]/80 p-6 text-white shadow-xl flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#a48834] mb-1">SUIVI DES COMPÉTITIONS</p>
             <h2 class="text-2xl font-bold">Compétitions de {{ $student->user->nom ?? '-' }} {{ $student->user->prenom ?? '' }}</h2>
@@ -76,5 +75,4 @@
             <p class="mt-2 text-slate-500">Votre enfant n'est inscrit à aucune compétition pour le moment.</p>
         </div>
     @endif
-</div>
 @endsection

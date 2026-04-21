@@ -3,7 +3,6 @@
 @section('title', 'Participation de l\'enfant')
 
 @section('content')
-<div class="px-2 sm:px-4 py-4">
     <!-- Header Premium -->
     <header class="mb-6 rounded-2xl bg-gradient-to-r from-[#04371f] to-[#04371f]/80 p-6 text-white shadow-xl flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -143,5 +142,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
