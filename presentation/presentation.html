@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAD AL-ATQA - Présentation Officielle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg: #F8FAFC;
+            --primary: #0F766E; /* Emerald/Teal Modern */
+            --secondary: #1E293B; /* Midnight Blue */
+            --text: #334155; /* Dark Gray */
+            --accent: #d4af37;
+        }
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            margin: 0;
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--bg);
+        }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .canva-shadow {
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+        }
+        .split-divider {
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+        }
+        .mermaid {
+            background: transparent !important;
+        }
+        .placeholder-box {
+            border: 2px dashed #cbd5e1;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1rem;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+        .nav-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+        .nav-btn {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            background: white;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+        .nav-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .progress-dots {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 1000;
+        }
+        .dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .dot.active {
+            background: var(--primary);
+            width: 2rem;
+            border-radius: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Page de Garde -->
+    <div class="slide active" id="slide-1">
+        <div class="w-full flex flex-col items-center justify-center p-12 text-center">
+            <div class="mb-8 p-6 bg-white rounded-3xl canva-shadow">
+                <img src="../public/images/logo.png" alt="Logo" class="w-32 h-32 object-contain" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3389/3389081.png'">
+            </div>
+            <h1 class="text-8xl font-bold text-[#1E293B] mb-4 tracking-tight">ZAD AL-ATQA</h1>
+            <div class="h-1.5 w-24 bg-[#0F766E] mb-6 rounded-full"></div>
+            <p class="text-3xl text-[#334155] font-light max-w-2xl mb-12">Plateforme Moderne de Suivi et de Gestion Coranique</p>
+            <div class="mt-auto pt-20">
+                <p class="text-sm uppercase tracking-widest font-bold text-[#64748b]">Présenté par El Mehdi</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: Problématique & Solution -->
+    <div class="slide" id="slide-2">
+        <div class="w-full flex flex-col p-20">
+            <h2 class="text-4xl font-bold text-[#1E293B] mb-16 text-center uppercase tracking-widest">Constat & Solution</h2>
+            
+            <div class="flex-1 flex gap-20 items-center">
+                <!-- Problématique -->
+                <div class="flex-1 space-y-8">
+                    <h3 class="text-2xl font-bold text-rose-600 flex items-center gap-3">
+                        <span class="p-2 bg-rose-50 rounded-lg">❌</span> La Problématique
+                    </h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4 p-6 bg-rose-50/50 rounded-2xl border border-rose-100">
+                            <span class="text-rose-500 font-bold">•</span>
+                            <p class="text-xl text-[#334155]">Suivi manuel et format papier fastidieux.</p>
+                        </li>
+                        <li class="flex items-start gap-4 p-6 bg-rose-50/50 rounded-2xl border border-rose-100">
+                            <span class="text-rose-500 font-bold">•</span>
+                            <p class="text-xl text-[#334155]">Manque de visibilité en temps réel pour les parents.</p>
+                        </li>
+                        <li class="flex items-start gap-4 p-6 bg-rose-50/50 rounded-2xl border border-rose-100">
+                            <span class="text-rose-500 font-bold">•</span>
+                            <p class="text-xl text-[#334155]">Gestion administrative lourde et décentralisée.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Arrow -->
+                <div class="flex flex-col items-center">
+                    <div class="text-5xl text-[#0F766E]">➔</div>
+                </div>
+
+                <!-- Solution -->
+                <div class="flex-1 space-y-8">
+                    <h3 class="text-2xl font-bold text-[#0F766E] flex items-center gap-3">
+                        <span class="p-2 bg-emerald-50 rounded-lg">✅</span> La Solution ZAD AL-ATQA
+                    </h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4 p-6 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                            <span class="text-emerald-500 font-bold">•</span>
+                            <p class="text-xl text-[#334155]">Centralisation sur un tableau de bord intelligent.</p>
+                        </li>
+                        <li class="flex items-start gap-4 p-6 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                            <span class="text-emerald-500 font-bold">•</span>
+                            <p class="text-xl text-[#334155]">Traçabilité numérique instantanée de la mémorisation.</p>
+                        </li>
+                        <li class="flex items-start gap-4 p-6 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                            <span class="text-emerald-500 font-bold">•</span>
+                            <p class="text-xl text-[#334155]">Interface intuitive aux couleurs modernes et zen.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Stack Technique -->
+    <div class="slide" id="slide-3">
+        <div class="w-full flex flex-col p-20">
+            <h2 class="text-4xl font-bold text-[#1E293B] mb-16 text-center uppercase tracking-widest">Technologies & Outils</h2>
+            
+            <div class="grid grid-cols-2 gap-12 flex-1">
+                <div class="bg-white p-10 rounded-3xl canva-shadow border border-slate-100">
+                    <div class="space-y-12">
+                        <div>
+                            <h3 class="text-xs font-bold text-[#64748b] uppercase tracking-widest mb-6">Gestion & Design</h3>
+                            <div class="flex flex-wrap gap-4">
+                                <span class="px-6 py-3 bg-[#1E293B] text-white rounded-full font-semibold">Jira</span>
+                                <span class="px-6 py-3 bg-[#F24E1E] text-white rounded-full font-semibold">Figma</span>
+                                <span class="px-6 py-3 bg-[#F05032] text-white rounded-full font-semibold">Git</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xs font-bold text-[#64748b] uppercase tracking-widest mb-6">Plateforme</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-center gap-6">
+                                    <div class="w-12 h-12 bg-[#FF2D20]/10 rounded-xl flex items-center justify-center text-[#FF2D20] font-bold">L</div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-[#1E293B]">Laravel</h4>
+                                        <p class="text-sm text-[#64748b]">PHP, MVC, Architecture OOP robuste</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-6">
+                                    <div class="w-12 h-12 bg-[#38BDF8]/10 rounded-xl flex items-center justify-center text-[#38BDF8] font-bold">T</div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-[#1E293B]">Tailwind CSS</h4>
+                                        <p class="text-sm text-[#64748b]">Design moderne et responsive</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-6">
+                                    <div class="w-12 h-12 bg-[#336791]/10 rounded-xl flex items-center justify-center text-[#336791] font-bold">P</div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-[#1E293B]">PostgreSQL</h4>
+                                        <p class="text-sm text-[#64748b]">Gestion avancée des données</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-center items-center gap-12 bg-[#0F766E]/5 rounded-3xl border-2 border-dashed border-[#0F766E]/20">
+                    <p class="text-[#0F766E] font-bold text-center px-12">Logos des technologies alignés pour un rendu professionnel</p>
+                    <div class="flex gap-8 opacity-50 grayscale transition-all hover:grayscale-0">
+                        <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20Logo%20Color%20Black.svg" width="120" alt="Laravel">
+                        <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-ar21.svg" width="120" alt="Tailwind">
+                        <img src="https://www.vectorlogo.zone/logos/postgresql/postgresql-ar21.svg" width="120" alt="PostgreSQL">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Cas d'Utilisation -->
+    <div class="slide" id="slide-4">
+        <div class="w-full flex flex-col p-20">
+            <h2 class="text-4xl font-bold text-[#1E293B] mb-16 text-center uppercase tracking-widest">Architecture : Cas d'Utilisation</h2>
+            
+            <div class="flex-1 flex gap-12">
+                <div class="w-1/3 bg-white p-10 rounded-3xl canva-shadow">
+                    <h3 class="text-xl font-bold text-[#0F766E] mb-8">Séparation des rôles</h3>
+                    <div class="space-y-6">
+                        <div class="p-6 bg-slate-50 rounded-2xl border-l-4 border-[#0F766E]">
+                            <h4 class="font-bold text-[#1E293B]">Administrateur</h4>
+                            <p class="text-sm text-[#64748b]">Gestion système, utilisateurs et écoles.</p>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl border-l-4 border-[#0F766E]">
+                            <h4 class="font-bold text-[#1E293B]">Cheikh (Enseignant)</h4>
+                            <p class="text-sm text-[#64748b]">Évaluations quotidiennes et gestion des Halaqat.</p>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl border-l-4 border-amber-500">
+                            <h4 class="font-bold text-[#1E293B]">Étudiant</h4>
+                            <p class="text-sm text-[#64748b]">Consultation du progrès et du planning.</p>
+                        </div>
+                        <div class="p-6 bg-slate-50 rounded-2xl border-l-4 border-amber-500">
+                            <h4 class="font-bold text-[#1E293B]">Parent</h4>
+                            <p class="text-sm text-[#64748b]">Suivi des résultats et notifications.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex-1 placeholder-box relative overflow-hidden group">
+                    <div class="z-10 text-center p-12">
+                        <span class="text-4xl mb-4 block">🖼️</span>
+                        <p class="text-sm opacity-60 mb-2 uppercase tracking-widest">Grand Format Réservé</p>
+                        <h4 class="text-xl font-bold text-[#475569]">DIAGRAMME USE CASE</h4>
+                    </div>
+                    <!-- Mermaid Alternative hidden or overlay -->
+                    <div class="absolute inset-0 p-8 flex items-center justify-center bg-white/40">
+                         <div class="mermaid scale-90">
+                            graph LR
+                                Admin((Admin)) --> ManageUsers(Gérer Utilisateurs)
+                                Admin --> ManageHalaqa(Gérer Halaqat)
+                                Cheikh((Cheikh)) --> Evaluate(Évaluer Étudiants)
+                                Cheikh --> ManageCircle(Gérer Cercles)
+                                Parent((Parent)) --> Track(Suivre Enfant)
+                                Student((Étudiant)) --> ViewProgress(Consulter Progrès)
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Diagramme de Classe -->
+    <div class="slide" id="slide-5">
+        <div class="w-full flex flex-col p-20">
+            <h2 class="text-4xl font-bold text-[#1E293B] mb-12 text-center uppercase tracking-widest">Architecture des Données</h2>
+            
+            <div class="flex-1 placeholder-box relative overflow-hidden mb-12">
+                <div class="z-10 text-center p-12">
+                    <span class="text-6xl mb-4 block">📊</span>
+                    <p class="text-sm opacity-60 mb-2 uppercase tracking-widest">Très Grand Format Réservé</p>
+                    <h4 class="text-2xl font-bold text-[#475569]">DIAGRAMME DE CLASSE</h4>
+                </div>
+                <div class="absolute inset-0 p-12 flex items-center justify-center bg-white/60">
+                    <div class="mermaid scale-110">
+                        classDiagram
+                            User "1" *-- "0..1" Profile
+                            Halaqa "1" --> "*" User : Students
+                            Halaqa "1" --> "1" User : Cheikh
+                            Evaluation "*" --> "1" User : Student
+                            Evaluation "*" --> "1" User : Evaluator
+                            Meeting "*" --> "*" User : Participants
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center text-xl text-[#64748b] italic">"Structuration autour des entités centrales : Utilisateurs, Halaqat, et Évaluations quotidiennes."</p>
+        </div>
+    </div>
+
+    <!-- Slide 6: Conclusion -->
+    <div class="slide" id="slide-6">
+        <div class="w-full flex flex-col items-center justify-center p-12 text-center">
+            <div class="w-24 h-24 bg-[#0F766E]/10 rounded-full flex items-center justify-center text-[#0F766E] text-4xl mb-12">⭐</div>
+            <h1 class="text-7xl font-bold text-[#1E293B] mb-16 tracking-tight">Bilan</h1>
+            
+            <div class="grid grid-cols-3 gap-8 max-w-6xl mb-24">
+                <div class="p-10 bg-white rounded-3xl canva-shadow border-t-8 border-[#0F766E]">
+                    <h3 class="font-bold text-xl mb-4">Solution</h3>
+                    <p class="text-[#64748b]">Fiable, sécurisée et parfaitement évolutive.</p>
+                </div>
+                <div class="p-10 bg-white rounded-3xl canva-shadow border-t-8 border-[#0F766E]">
+                    <h3 class="font-bold text-xl mb-4">Essence</h3>
+                    <p class="text-[#64748b]">Digitalise l'apprentissage tout en gardant son essence spirituelle.</p>
+                </div>
+                <div class="p-10 bg-white rounded-3xl canva-shadow border-t-8 border-amber-500">
+                    <h3 class="font-bold text-xl mb-4">Ergonomie</h3>
+                    <p class="text-[#64748b]">Prêt à l'emploi avec une ergonomie moderne et efficace.</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <p class="text-2xl font-bold text-[#0F766E]">Merci de votre attention.</p>
+                <p class="text-xl text-[#64748b]">Avez-vous des questions ?</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation dots -->
+    <div class="progress-dots">
+        <div class="dot active" onclick="goToSlide(1)"></div>
+        <div class="dot" onclick="goToSlide(2)"></div>
+        <div class="dot" onclick="goToSlide(3)"></div>
+        <div class="dot" onclick="goToSlide(4)"></div>
+        <div class="dot" onclick="goToSlide(5)"></div>
+        <div class="dot" onclick="goToSlide(6)"></div>
+    </div>
+
+    <!-- Layout Navigation Buttons -->
+    <div class="nav-controls">
+        <button id="prevBtn" class="nav-btn">←</button>
+        <button id="nextBtn" class="nav-btn">→</button>
+    </div>
+
+    <script>
+        let currentSlideIdx = 1;
+        const totalSlides = 6;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function goToSlide(idx) {
+            if (idx < 1 || idx > totalSlides) return;
+            
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            
+            document.getElementById(`slide-${idx}`).classList.add('active');
+            dots[idx-1].classList.add('active');
+            
+            currentSlideIdx = idx;
+        }
+
+        document.getElementById('nextBtn').onclick = () => {
+            if (currentSlideIdx < totalSlides) goToSlide(currentSlideIdx + 1);
+            else goToSlide(1); 
+        };
+
+        document.getElementById('prevBtn').onclick = () => {
+            if (currentSlideIdx > 1) goToSlide(currentSlideIdx - 1);
+            else goToSlide(6);
+        };
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') goToSlide(currentSlideIdx < totalSlides ? currentSlideIdx + 1 : 1);
+            if (e.key === 'ArrowLeft') goToSlide(currentSlideIdx > 1 ? currentSlideIdx - 1 : 6);
+        });
+
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#0F766E',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#0F766E',
+                lineColor: '#334155',
+                secondaryColor: '#f1f5f9',
+                tertiaryColor: '#fff'
+            }
+        });
+    </script>
+</body>
+</html>

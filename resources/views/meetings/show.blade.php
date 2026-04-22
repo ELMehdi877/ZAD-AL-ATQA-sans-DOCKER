@@ -1,5 +1,10 @@
 @php
-    $layout = in_array(auth()->user()?->role, ['admin', 'cheikh'], true) ? 'layouts.admin' : 'layouts.app';
+    $role = auth()->user()?->role;
+    $layout = match($role) {
+        'admin', 'cheikh' => 'layouts.admin',
+        'student', 'parent' => 'layouts.user-navbar',
+        default => 'layouts.app',
+    };
 @endphp
 
 @extends($layout)
