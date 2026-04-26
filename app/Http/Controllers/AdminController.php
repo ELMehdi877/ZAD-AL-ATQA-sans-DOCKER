@@ -13,7 +13,7 @@ class AdminController extends Controller
      * --- ACTEUR : ADMIN ---
      * Affiche le tableau de bord principal de l'administrateur avec les statistiques globales.
      */
-    public function dashboard()
+    public function index()
     {
         $usersCount = User::count();
         $halaqasCount = Halaqa::count();

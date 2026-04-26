@@ -237,7 +237,7 @@ Route::middleware(['auth', 'check.status'])->group(function () {
     Route::middleware('role:admin')->group(function () {
 
         //Dashboard
-        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
         /*        
          * =========================================

@@ -118,4 +118,17 @@ class CompetitionController extends Controller
         return redirect()->route('competitions.index')
             ->with('success', 'Compétition ' . $competition->titre . ' supprimée !');
     }
+
+    /**
+     * --- ACTEUR : ADMIN ---
+     * Change le statut d'une compétition (active/inactive).
+     */
+    public function statusCompetition(Competition $competition)
+    {
+        $competition->update([
+            'statut' => ($competition->statut === 'active') ? 'inactive' : 'active'
+        ]);
+
+        return back()->with('success', 'Le statut de la compétition a été mis à jour.');
+    }
 }
