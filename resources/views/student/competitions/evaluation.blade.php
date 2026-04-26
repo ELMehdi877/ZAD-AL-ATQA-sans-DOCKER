@@ -1,12 +1,12 @@
 @extends('layouts.user-navbar')
 
-@section('title', 'Mon Évaluation de Compétition')
+@section('title', 'Détails de l\'évaluation')
 
 @section('content')
     <!-- Header Premium -->
     <header class="mb-4 sm:mb-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#04371f] to-[#04371f]/80 p-4 sm:p-6 text-white shadow-xl flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-            <p class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-[#a48834] mb-1">DÉTAILS DE MON ÉVALUATION</p>
+            <p class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-[#a48834] mb-1">MON ÉVALUATION</p>
             <h2 class="text-xl sm:text-2xl font-bold leading-tight">{{ $competition->titre }}</h2>
             <p class="mt-1 text-xs sm:text-sm text-slate-200 opacity-90 truncate max-w-xs sm:max-w-none">
                 {{ \Carbon\Carbon::parse($competition->date_debut)->translatedFormat('d M Y') }} - {{ \Carbon\Carbon::parse($competition->date_fin)->translatedFormat('d M Y') }}
@@ -38,7 +38,7 @@
             </div>
 
             <div class="rounded-2xl bg-white p-4 sm:p-5 shadow-sm border border-slate-100">
-                <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Note Tajwid</p>
+                <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Ma Note Tajwid</p>
                 <div class="mt-2 flex items-baseline gap-1">
                     <span class="text-2xl sm:text-3xl font-bold text-slate-900">{{ $participation->note_tajwid ?? '-' }}</span>
                     <span class="text-xs sm:text-sm text-slate-400 font-medium">/ 10</span>
@@ -49,7 +49,7 @@
             </div>
 
             <div class="rounded-2xl bg-white p-4 sm:p-5 shadow-sm border border-slate-100">
-                <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Note Hifz</p>
+                <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Ma Note Hifz</p>
                 <div class="mt-2 flex items-baseline gap-1">
                     <span class="text-2xl sm:text-3xl font-bold text-slate-900">{{ $participation->note_hifz ?? '-' }}</span>
                     <span class="text-xs sm:text-sm text-slate-400 font-medium">/ 10</span>
@@ -65,7 +65,7 @@
             <div class="lg:col-span-12">
                  <div class="rounded-2xl bg-white shadow-sm border border-slate-100 overflow-hidden">
                     <div class="border-b border-slate-100 bg-slate-50/50 px-6 py-4">
-                        <h2 class="text-lg font-bold text-slate-900">Résumé de mon Évaluation</h2>
+                        <h2 class="text-lg font-bold text-slate-900">Résumé de l'Évaluation</h2>
                     </div>
                     <div class="p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -76,18 +76,18 @@
                                     <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
                                         <div class="flex items-center gap-4">
                                             <div class="h-12 w-12 rounded-full bg-[#04371f] text-white flex items-center justify-center font-bold text-lg">
-                                                {{ strtoupper(substr($student->user->nom ?? 'E', 0, 1)) }}
+                                                {{ strtoupper(substr($student->user->nom ?? 'M', 0, 1)) }}
                                             </div>
                                             <div>
                                                 <p class="text-sm font-bold text-slate-900">{{ $student->user->nom ?? '-' }} {{ $student->user->prenom ?? '' }}</p>
-                                                <p class="text-xs text-slate-500">Mon profil étudiant</p>
+                                                <p class="text-xs text-slate-500">Étudiant participant</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <h3 class="text-xs font-bold text-[#a48834] uppercase tracking-widest mb-3">Évaluateur</h3>
+                                    <h3 class="text-xs font-bold text-[#a48834] uppercase tracking-widest mb-3">Mon Évaluateur</h3>
                                     <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
                                         <div class="flex items-center gap-3 text-sm">
                                             <div class="h-8 w-8 rounded-lg bg-slate-200 flex items-center justify-center text-slate-600">

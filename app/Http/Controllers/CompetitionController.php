@@ -5,130 +5,132 @@ namespace App\Http\Controllers;
 use App\Models\Competition;
 use App\Http\Requests\StoreCompetitionRequest;
 use App\Http\Requests\UpdateCompetitionRequest;
-use App\Models\Student;
 use App\Models\Participation;
-use App\Models\User;
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 
 class CompetitionController extends Controller
 {
     /**
-     * --- ACTEUR MULTIPLE (ADMIN / CHEIKH / ÉTUDIANT) ---
      * Affiche la liste des compétitions.
-     * Les étudiants voient les compétitions actives, les autres voient tout.
      */
     public function index()
     {
         $user = Auth::user();
 
-        if ($user?->role === 'student') {
-            $competitions = Competition::where('statut', 'active')->orderBy('id', 'asc')->get();
-            return view('student.competitions.index', compact('competitions'));
+
+        if ($user?->role === 'cheikh' || $user?->role === 'admin') {
+            $competitions = Competition::orderBy('id', 'asc')->get();
+
+            return view('competitions.index', compact('competitions'));
         }
 
-        $competitions = Competition::orderBy('id', 'asc')->get();
-        
-        // Les admins et cheikhs partagent la même vue globale pour la liste
-        $view = match($user?->role) {
-            'admin', 'cheikh' => 'competitions.index',
-            default => abort(403)
-        };
-
-        return view($view, compact('competitions'));
+        if ($user?->role === 'student') {
+            $competitions = Competition::where('statut', 'active')
+            ->orderBy('id', 'asc')
+            ->get();
+            return view('student.competitions.index', compact('competitions'));
+        }
     }
 
     /**
-     * --- ACTEUR : ADMIN ---
-     * Formulaire de création d'une nouvelle compétition.
+     * Affiche le formulaire de création d'une compétition.
      */
     public function create()
     {
-        return view('admin.competitions.create');
+        $students = Student::with('user')
+            ->whereDoesntHave('competitions', function ($query) {
+                $query->where('participations.statut', 'valide');
+            })
+            ->orderBy('id', 'asc')
+            ->get();
+        return view('admin.competitions.create', compact('students'));
     }
 
     /**
-     * --- ACTEUR : ADMIN ---
-     * Enregistre une nouvelle compétition dans le système.
+     * Enregistre une nouvelle compétition en base de données.
      */
     public function store(StoreCompetitionRequest $request)
     {
         $data = $request->validated();
+
         $competition = Competition::create($data);
 
+        if (!empty($data['students'])) {
+            $competition->students()->attach($data['students'], ['statut' => 'valide']);
+        }
+        
         return redirect()->route('competitions.index')
             ->with('success', 'Nouvelle compétition ' . $competition->titre . ' créée !');
     }
 
     /**
-     * --- ACTEUR MULTIPLE (ADMIN / CHEIKH) ---
-     * Affiche les détails d'une compétition et la liste des participants.
+     * Affiche les détails d'une compétition spécifique.
      */
     public function show(Competition $competition)
     {
-        $user = Auth::user();
+        $competition->load(['students.user']);
 
-        $participations = Participation::where('competition_id', $competition->id)
-            ->with('student.user')
-            ->get();
+        $participationsByStudent = Participation::where('competition_id', $competition->id)
+            ->with('cheikh')
+            ->get()
+            ->keyBy('student_id');
 
-        // Les admins et cheikhs partagent la même vue globale pour les détails
-        $view = match($user?->role) {
-            'admin', 'cheikh' => 'competitions.show',
-            default => abort(403)
-        };
-
-        return view($view, compact('competition', 'participations'));
+        return view('competitions.show', compact('competition', 'participationsByStudent'));
     }
 
     /**
-     * --- ACTEUR : ADMIN ---
-     * Formulaire d'édition d'une compétition (titre, date, statut).
+     * Affiche le formulaire pour modifier une compétition.
      */
     public function edit(Competition $competition)
     {
-        return view('admin.competitions.edit', compact('competition'));
+        $students = Student::with('user')
+            ->whereHas('competitions', function ($query) use ($competition) {
+                $query->where('participations.competition_id', $competition->id);
+            })
+            ->orderBy('id', 'asc')
+            ->get();
+
+        $studentsNotInCompetition = Student::with('user')
+            ->whereDoesntHave('competitions', function ($query) use ($competition) {
+                $query->where('participations.competition_id', $competition->id);
+            })
+            ->orderBy('id', 'asc')
+            ->get();
+        
+        return view('admin.competitions.edit', compact('competition', 'students', 'studentsNotInCompetition'));
     }
 
     /**
-     * --- ACTEUR : ADMIN ---
-     * Met à jour les informations de la compétition.
+     * Met à jour une compétition existante.
      */
     public function update(UpdateCompetitionRequest $request, Competition $competition)
     {
         $data = $request->validated();
         $competition->update($data);
+        $competition->students()->syncWithPivotValues($data['students'] ?? [], ['statut' => 'valide']);
 
         return redirect()->route('competitions.index')
-            ->with('success', 'Compétition ' . $competition->titre . ' mise à jour !');
+            ->with('success', 'Compétition ' . $competition->titre . ' modifiée !');
     }
 
     /**
-     * --- ACTEUR : ADMIN ---
-     * Supprime une compétition du système.
-     */
-    public function destroy(Competition $competition)
-    {
-        try {
-            $competition->delete();
-        } catch (\Exception $e) {
-            return redirect()->route('competitions.index')
-                ->with('error', 'Impossible de supprimer cette compétition car elle contient des participations.');
-        }
-
-        return redirect()->route('competitions.index')
-            ->with('success', 'Compétition ' . $competition->titre . ' supprimée !');
-    }
-
-    /**
-     * --- ACTEUR : ADMIN ---
      * Change le statut d'une compétition (active/inactive).
      */
     public function statusCompetition(Competition $competition)
     {
-        $competition->update([
-            'statut' => ($competition->statut === 'active') ? 'inactive' : 'active'
-        ]);
+        if ($competition->statut === 'active') {
+            $competition->update([
+                'statut' => 'inactive'
+            ]);
+        }
+        else {
+            $competition->update([
+                'statut' => 'active'
+            ]);
+        }
 
-        return back()->with('success', 'Le statut de la compétition a été mis à jour.');
+        return redirect()->route('competitions.index')
+            ->with('success', 'Compétition ' . $competition->titre . ' a un statut '.$competition->statut);
     }
 }
