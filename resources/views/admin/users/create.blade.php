@@ -13,7 +13,7 @@
     </header>
 
     <section class="max-w-3xl rounded-xl bg-white p-5 shadow">
-        <form method="POST" action="{{ route('user.store') }}" class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <form method="POST" action="{{ route('users.store') }}" class="grid grid-cols-1 gap-3 sm:grid-cols-2">
             @csrf
             <div>
                 <label class="mb-1 block text-sm font-medium" for="nom">Nom</label>

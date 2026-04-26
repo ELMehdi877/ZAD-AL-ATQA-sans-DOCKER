@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class CompetitionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche la liste des compétitions.
      */
     public function index()
     {
@@ -34,7 +34,7 @@ class CompetitionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire de création d'une compétition.
      */
     public function create()
     {
@@ -48,7 +48,7 @@ class CompetitionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Enregistre une nouvelle compétition en base de données.
      */
     public function store(StoreCompetitionRequest $request)
     {
@@ -65,7 +65,7 @@ class CompetitionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Affiche les détails d'une compétition spécifique.
      */
     public function show(Competition $competition)
     {
@@ -80,7 +80,7 @@ class CompetitionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affiche le formulaire pour modifier une compétition.
      */
     public function edit(Competition $competition)
     {
@@ -102,7 +102,7 @@ class CompetitionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour une compétition existante.
      */
     public function update(UpdateCompetitionRequest $request, Competition $competition)
     {
@@ -115,7 +115,7 @@ class CompetitionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Change le statut d'une compétition (active/inactive).
      */
     public function statusCompetition(Competition $competition)
     {

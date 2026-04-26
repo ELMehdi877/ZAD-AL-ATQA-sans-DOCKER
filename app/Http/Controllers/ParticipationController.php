@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ParticipationController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche la liste de toutes les participations avec les relations associées.
      */
     public function index()
     {
@@ -19,56 +19,10 @@ class ParticipationController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Participation $participation)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Participation $participation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateParticipationRequest $request, Participation $participation)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Participation $participation)
-    {
-        //
-    }
-
-    /**
-     * Accept a student's participation in a competition.
+     * Met à jour le statut d'une participation (en attente, validé, refusé).
      */
 
     public function acceptParticipation(UpdateParticipationRequest $request, Participation $participation)

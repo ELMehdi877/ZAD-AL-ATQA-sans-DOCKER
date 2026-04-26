@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 
 class MeetingController extends Controller
 {
+    /**
+     * Affiche la liste des réunions selon le rôle de l'utilisateur.
+     */
     public function index()
     {
         $user = Auth::user();
@@ -41,6 +44,9 @@ class MeetingController extends Controller
         return view('meetings.index', compact('meetings'));
     }
 
+    /**
+     * Affiche le formulaire de création d'une réunion.
+     */
     public function create()
     {
         $user = Auth::user();
@@ -54,6 +60,9 @@ class MeetingController extends Controller
         return view('meetings.create', compact('halaqas'));
     }
 
+    /**
+     * Enregistre une nouvelle réunion via l'API Daily.co.
+     */
     public function store(Request $request)
     {
         $user = Auth::user();
@@ -109,11 +118,17 @@ class MeetingController extends Controller
         return redirect()->route('meetings.join', $meeting);
     }
 
+    /**
+     * Affiche une réunion (redirige vers join).
+     */
     public function show(Meeting $meeting)
     {
         return $this->join($meeting);
     }
 
+    /**
+     * Génère un jeton et permet de rejoindre une salle de réunion.
+     */
     public function join(Meeting $meeting)
     {
         $user = Auth::user();
@@ -161,6 +176,9 @@ class MeetingController extends Controller
         ]);
     }
 
+    /**
+     * Envoie le lien de la réunion aux étudiants par le chat.
+     */
     public function sendLink(Request $request, Meeting $meeting)
     {
         $user = Auth::user();
@@ -189,6 +207,9 @@ class MeetingController extends Controller
         return back()->with('success', 'Lien envoyé avec succès via la messagerie interne.');
     }
 
+    /**
+     * Vérifie si un utilisateur a l'autorisation de rejoindre la réunion.
+     */
     private function userCanJoin(Meeting $meeting, $user): bool
     {
         if (! $user) {

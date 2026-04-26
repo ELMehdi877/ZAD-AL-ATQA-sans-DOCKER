@@ -20,7 +20,7 @@ class ParentController extends Controller
         return User::findOrFail(Auth::id());
     }
     /**
-     * Display a listing of the resource.
+     * Affiche le tableau de bord avec les enfants du parent.
      */
     public function index()
     {

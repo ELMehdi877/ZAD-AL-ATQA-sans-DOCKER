@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\HttpCache\Store;
 class CheikhController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche le tableau de bord principal du Cheikh.
      */
     public function index()
     {
@@ -66,6 +66,9 @@ class CheikhController extends Controller
     }
 
 
+    /**
+     * Affiche une Halaqa spécifique pour la prise de notes/présence.
+     */
     public function showHalaqa(Halaqa $halaqa)
     {
         // Verifier que la halaqa appartient au cheikh connecte
@@ -116,6 +119,9 @@ class CheikhController extends Controller
         ));
     }
 
+    /**
+     * Enregistre l'évaluation journalière d'un étudiant.
+     */
     public function storeEvaluation(StoreEvaluationRequest $request)
     {
         $data = $request->validated();
@@ -144,6 +150,9 @@ class CheikhController extends Controller
         return back()->with('success', 'Evaluation enregistree avec succes.');
     }
 
+    /**
+     * Met à jour une évaluation existante.
+     */
     public function updateEvaluation(UpdateEvaluationRequest $request, Evaluation $evaluation)
     {
         $data = $request->validated();
@@ -158,6 +167,9 @@ class CheikhController extends Controller
         return back()->with('success', 'Evaluation mise a jour avec succes.');
     }
 
+    /**
+     * Supprime une évaluation.
+     */
     public function deleteEvaluation(Evaluation $evaluation)
     {
         // Verifier que l'evaluation appartient au cheikh connecte
@@ -170,6 +182,9 @@ class CheikhController extends Controller
         return back()->with('success', 'Evaluation supprimee avec succes.');
     }
 
+    /**
+     * Affiche l'historique des évaluations d'un étudiant précis.
+     */
     public function historiqueEvaluationsStudent(Halaqa $halaqa, Student $student)
     {
         // Verifier que la halaqa appartient au cheikh connecte
@@ -199,6 +214,9 @@ class CheikhController extends Controller
         
     }
 
+    /**
+     * Met à jour le niveau de mémorisation (Hifz) d'un étudiant.
+     */
     public function updateEtudiantHifz(Halaqa $halaqa, Student $student, Request $request)
     {
         $data = $request->validate([
@@ -224,6 +242,9 @@ class CheikhController extends Controller
         return back()->with('success', 'Nombre de hifz mis a jour avec succes.');
     }
 
+    /**
+     * Affiche l'historique de toutes les évaluations d'une Halaqa.
+     */
     public function historiqueEvaluationsHalaqa(Halaqa $halaqa)
     {
         if ($halaqa->cheikh_id !== Auth::id()) {
@@ -248,6 +269,9 @@ class CheikhController extends Controller
         return view('cheikh.halaqas.historique', compact('halaqa', 'students', 'evaluationsByDay'));
     }
 
+    /**
+     * Recherche dans l'historique d'une Halaqa via des filtres.
+     */
     public function searchByDateOrNomOrPrenom(Halaqa $halaqa, Request $request)
     {
         $data = $request->validate([
@@ -302,6 +326,9 @@ class CheikhController extends Controller
         return view('cheikh.halaqas.historique', compact('halaqa', 'evaluationsByDay', 'selectedDate', 'selectedNom', 'selectedPrenom', 'selectedPresence', 'students'));
     }
 
+    /**
+     * Ajoute ou met à jour l'évaluation d'un étudiant pour une compétition.
+     */
     public function evaluationStudentCompetition(StoreOrUpdateEvaluationParticipationCompetitionRequest $request, Competition $competition, Student $student)
     {
         $data = $request->validated();
@@ -325,6 +352,9 @@ class CheikhController extends Controller
 
     }
 
+    /**
+     * Supprime la note/évaluation d'un étudiant dans une compétition.
+     */
     public function deleteEvaluationStudentCompetition(Competition $competition, Student $student)
     {
         $evaluationParticipation = Participation::where('student_id', $student->id)

@@ -13,7 +13,7 @@
     </header>
 
     <section class="rounded-xl bg-white p-5 shadow xl:max-w-6xl">
-        <form method="POST" action="{{ route('halaqa.store') }}" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <form method="POST" action="{{ route('halaqas.store') }}" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             @csrf
             
             <div class="lg:col-span-7 grid grid-cols-1 gap-4 sm:grid-cols-2">

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class StudentController extends Controller
 {
     /**
-     * Get the current authenticated student's record.
+     * Récupère le modèle Student de l'utilisateur connecté.
      */
     private function currentStudent(): Student
     {
@@ -20,7 +20,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Show all participations.
+     * Affiche l'historique des participations de l'étudiant.
      */
     public function participations()
     {
@@ -32,7 +32,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Show all available competitions.
+     * Affiche les compétitions actives disponibles.
      */
     public function competitions()
     {
@@ -43,7 +43,7 @@ class StudentController extends Controller
 
 
     /**
-     * Cancel participation in a competition.
+     * Annule la participation à une compétition.
      */
     public function cancelParticipation (Competition $competition)
     {
@@ -56,7 +56,7 @@ class StudentController extends Controller
     
 
     /**
-     * Participate in a competition.
+     * Enregistre la participation à une compétition.
      */
     public function participateCompetition (Competition $competition)
     {
@@ -76,7 +76,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Show the current active halaqa for the student.
+     * Affiche la Halaqa actuelle de l'étudiant.
      */
     public function currentHalaqa()
     {
@@ -155,7 +155,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Show the history of evaluations for the student.
+     * Affiche l'historique de toutes les évaluations.
      */
     public function historiqueEvaluations()
     {

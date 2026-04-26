@@ -12,7 +12,7 @@
     </header>
 
     <section class="max-w-3xl rounded-xl bg-white p-5 shadow">
-        <form method="POST" action="{{ route('user.update', ['user' => $user->id]) }}" class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <form method="POST" action="{{ route('users.update', ['user' => $user->id]) }}" class="grid grid-cols-1 gap-3 sm:grid-cols-2">
             @csrf
             @method('PUT')
 

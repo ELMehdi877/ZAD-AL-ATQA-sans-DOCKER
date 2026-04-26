@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     /**
-    * Display the admin dashboard.
-    */
+     * Affiche le tableau de bord de l'administrateur.
+     */
     public function dashboard()
     {
 
@@ -33,8 +33,8 @@ class AdminController extends Controller
     }
     
     /**
-     * Display a listing of the resource.
-    */
+     * Affiche la liste de tous les utilisateurs.
+     */
     public function index()
     {
         $users = User::orderBy('id', 'asc')->get();
@@ -42,7 +42,7 @@ class AdminController extends Controller
     }
         
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire de création d'un utilisateur.
      */
     public function createUserPage()
     {
@@ -54,7 +54,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Enregistre un nouvel utilisateur.
      */
     public function storeUser(StoreUserRequest $request)
     {
@@ -81,7 +81,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affiche le formulaire d'édition d'un utilisateur.
      */
     public function editUserPage(User $user)
     {
@@ -95,7 +95,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour les informations d'un utilisateur.
      */
     public function updateUser(UpdateUserRequest $request, User $user)
     {
@@ -131,7 +131,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime un utilisateur.
      */
     public function deleteUser(int $id)
     {
@@ -144,7 +144,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Update the status of the specified resource in storage.
+     * Active ou désactive le compte d'un utilisateur.
      */
     public function statusUser(int $id)
     {
@@ -168,7 +168,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Search for users by name.
+     * Recherche les utilisateurs par nom.
      */
     public function searchUserByName(Request $request)
     {

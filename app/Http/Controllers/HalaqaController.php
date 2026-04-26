@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class HalaqaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche la liste des Halaqas selon le rôle (admin, cheikh, étudiant).
      */
     public function index()
     {
@@ -55,7 +55,7 @@ class HalaqaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire de création d'une nouvelle Halaqa.
      */
     public function createHalaqaPage()
     {
@@ -74,7 +74,7 @@ class HalaqaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Enregistre une nouvelle Halaqa en base de données.
      */
     public function store(StoreHalaqaRequest $request)
     {
@@ -94,7 +94,7 @@ class HalaqaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Affiche les détails d'une Halaqa spécifique.
      */
     public function show(Halaqa $halaqa)
     {
@@ -104,7 +104,7 @@ class HalaqaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affiche le formulaire d'édition d'une Halaqa existante.
      */
     public function edit(Halaqa $halaqa)
     {
@@ -130,7 +130,7 @@ class HalaqaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour les informations et les étudiants d'une Halaqa.
      */
     public function update(UpdateHalaqaRequest $request, Halaqa $halaqa)
     {
@@ -165,7 +165,7 @@ class HalaqaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime une Halaqa si elle n'a pas d'étudiants rattachés.
      */
     public function destroy(Halaqa $halaqa)
     {

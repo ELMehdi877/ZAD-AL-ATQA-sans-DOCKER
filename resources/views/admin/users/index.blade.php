@@ -17,7 +17,7 @@
 
     <section class="mb-6 rounded-xl bg-white p-4 shadow">
         <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <form method="GET" action="{{ route('user.search') }}" class="flex flex-col gap-3 sm:flex-row sm:items-end">
+            <form method="GET" action="{{ route('users.search') }}" class="flex flex-col gap-3 sm:flex-row sm:items-end">
                 <div class="w-full sm:max-w-md">
                     <label for="nom" class="mb-1 block text-sm font-medium">Recherche par nom</label>
                     <input id="nom" name="nom" type="text" required class="w-full rounded-lg border border-slate-300 px-3 py-2" value="{{ request('nom') }}" placeholder="Ex: Ahmed">
@@ -26,7 +26,7 @@
                 <a href="{{ route('users.index') }}" class="rounded-lg border border-slate-300 px-4 py-2 text-center font-medium hover:bg-slate-50">Reset</a>
             </form>
 
-            <form method="GET" action="{{ route('user.filter') }}" class="flex flex-col gap-3 sm:flex-row sm:items-end lg:justify-end">
+            <form method="GET" action="{{ route('users.filter') }}" class="flex flex-col gap-3 sm:flex-row sm:items-end lg:justify-end">
                 <div class="w-full sm:max-w-xs">
                     <label for="role" class="mb-1 block text-sm font-medium">Filtrer par role</label>
                     <select id="role" name="role" required class="w-full rounded-lg border border-slate-300 px-3 py-2">
@@ -73,13 +73,13 @@
                             <div class="flex flex-wrap gap-2">
                                 <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="rounded bg-blue-100 px-2 py-1 font-medium text-blue-700 hover:bg-blue-200">Modifier</a>
 
-                                <form method="POST" action="{{ route('user.statut', ['id' => $user->id]) }}" class="inline">
+                                <form method="POST" action="{{ route('users.statut', ['id' => $user->id]) }}" class="inline">
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit" class="rounded bg-amber-100 px-2 py-1 font-medium text-amber-800 hover:bg-amber-200">Statut</button>
                                 </form>
 
-                                <form method="POST" action="{{ route('user.delete', ['id' => $user->id]) }}" class="inline delete-form" data-user="{{ $user->nom }} {{ $user->prenom }}">
+                                <form method="POST" action="{{ route('users.destroy', ['id' => $user->id]) }}" class="inline delete-form" data-user="{{ $user->nom }} {{ $user->prenom }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="rounded bg-rose-100 px-2 py-1 font-medium text-rose-700 hover:bg-rose-200">Supprimer</button>

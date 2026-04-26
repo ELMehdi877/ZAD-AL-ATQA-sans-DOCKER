@@ -63,41 +63,24 @@ class ChatsPanelProvider extends PanelProvider
      */
     private function allowedChatRecipientIdsFor(User $user): array
     {
-        $halaqaIds = collect();
-
         if ($user->role === 'student' && $user->student) {
-            $halaqaIds = $user->student()
-                ->with(['halaqas' => function ($query) {
-                    $query->wherePivot('statut', 'active');
-                }])
-                ->first()
-                ?->halaqas
-                ?->pluck('id') ?? collect();
+            return $user->student->halaqas()
+                ->wherePivot('statut', 'active')
+                ->pluck('cheikh_id')
+                ->unique()
+                ->toArray();
         }
 
         if ($user->role === 'parent') {
-            $halaqaIds = Student::where('parent_id', $user->id)
-                ->with(['halaqas' => function ($query) {
-                    $query->wherePivot('statut', 'active');
-                }])
-                ->get()
-                ->flatMap(function (Student $student) {
-                    return $student->halaqas->pluck('id');
-                });
-        }
-
-        $halaqaIds = $halaqaIds->filter()->unique()->values();
-
-        if ($halaqaIds->isEmpty()) {
-            return [];
-        }
-
-        return User::query()
-            ->where('role', 'cheikh')
-            ->whereHas('halaqas', function ($query) use ($halaqaIds) {
-                $query->whereIn('halaqas.id', $halaqaIds);
+            return \App\Models\Halaqa::whereHas('students', function ($query) use ($user) {
+                $query->where('parent_id', $user->id)
+                      ->where('memberships.statut', 'active');
             })
-            ->pluck('id')
-            ->all();
+            ->pluck('cheikh_id')
+            ->unique()
+            ->toArray();
+        }
+
+        return [];
     }
 }

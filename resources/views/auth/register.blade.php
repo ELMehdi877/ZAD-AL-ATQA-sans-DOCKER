@@ -19,8 +19,20 @@
 
         <!-- role -->
         <div>
-            <x-input-label for="role" :value="__('role')" />
-            <x-text-input id="role" class="block mt-1 w-full" type="text" name="role" :value="old('role')" required autofocus autocomplete="role" />
+            <x-input-label for="role" :value="__('Role')" />
+
+            <select name="role" id="role" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
+                <option value="">-- Choisir un rôle --</option>
+
+                <option value="student" {{ old('role') == 'etudiant' ? 'selected' : '' }}>
+                    Étudiant
+                </option>
+
+                <option value="parent" {{ old('role') == 'parent' ? 'selected' : '' }}>
+                    Parent
+                </option>
+            </select>
+
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
         </div>
 
