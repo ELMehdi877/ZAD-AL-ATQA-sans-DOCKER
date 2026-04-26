@@ -3,12 +3,13 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompetitionController;
 use App\Http\Controllers\CheikhController;
+use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\HalaqaController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\ParticipationController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -47,10 +48,10 @@ Route::middleware(['auth', 'check.status'])->group(function () {
         Route::get('/student/halaqas', [HalaqaController::class, 'index'])->name('student.halaqas');
         
         // Afficher la Halaqa active actuelle
-        Route::get('/student/halaqa-actuelle', [StudentController::class, 'currentHalaqa'])->name('student.current-halaqa');
+        Route::get('/student/halaqa-actuelle', [HalaqaController::class, 'currentHalaqa'])->name('student.current-halaqa');
         
         // Rechercher dans la Halaqa actuelle par sourate ou date
-        Route::get('/student/halaqas/{halaqa}/search', [StudentController::class, 'searchBySourateOrdateCurrentHalaqa'])->name('student.halaqas.search');
+        Route::get('/student/halaqas/{halaqa}/search', [HalaqaController::class, 'searchCurrentHalaqa'])->name('student.halaqas.search');
         
         /*
          * ================================================
@@ -59,19 +60,19 @@ Route::middleware(['auth', 'check.status'])->group(function () {
          */
 
         // Afficher l'historique des participations
-        Route::get('/student/participations', [StudentController::class, 'participations'])->name('student.participations');
+        Route::get('/student/participations', [ParticipationController::class, 'studentParticipations'])->name('student.participations');
         
         // Afficher les compétitions disponibles
         Route::get('/student/competitions', [CompetitionController::class, 'index'])->name('student.competitions');
         
         // S'inscrire à une compétition
-        Route::post('/student/competitions/{competition}/participate', [StudentController::class, 'participateCompetition'])->name('student.participate');
+        Route::post('/student/competitions/{competition}/participate', [ParticipationController::class, 'participate'])->name('student.participate');
         
         // Annuler l'inscription à une compétition
-        Route::delete('/student/competitions/{competition}/cancel', [StudentController::class, 'cancelParticipation'])->name('student.cancel');
+        Route::delete('/student/competitions/{competition}/cancel', [ParticipationController::class, 'cancel'])->name('student.cancel');
         
         // Afficher l'évaluation obtenue lors d'une compétition
-        Route::get('/student/competitions/{competition}/evaluation', [StudentController::class, 'showCompetitionEvaluation'])->name('student.showParticipation');
+        Route::get('/student/competitions/{competition}/evaluation', [ParticipationController::class, 'showStudentEvaluation'])->name('student.showParticipation');
         
         /*
          * ==========================================
@@ -80,10 +81,10 @@ Route::middleware(['auth', 'check.status'])->group(function () {
          */
 
         // Afficher tout l'historique des évaluations
-        Route::get('/student/evaluations/historique', [StudentController::class, 'historiqueEvaluations'])->name('student.evaluations.historique');
+        Route::get('/student/evaluations/historique', [EvaluationController::class, 'historiqueForStudent'])->name('student.evaluations.historique');
         
         // Rechercher dans l'historique des évaluations
-        Route::get('/student/evaluations/search', [StudentController::class, 'searchBySourateOrdate'])->name('student.evaluations.search');
+        Route::get('/student/evaluations/search', [EvaluationController::class, 'searchForStudent'])->name('student.evaluations.search');
     });
 
     Route::middleware('role:parent')->group(function () {
@@ -107,19 +108,19 @@ Route::middleware(['auth', 'check.status'])->group(function () {
          */
 
         // Afficher les Halaqas d'un enfant
-        Route::get('/parent/children/{student}/halaqas', [ParentController::class, 'showchildHalaqas'])->name('parent.children.halaqas');
+        Route::get('/parent/children/{student}/halaqas', [HalaqaController::class, 'showChildHalaqas'])->name('parent.children.halaqas');
         
         // Afficher l'historique complet des évaluations d'un enfant
-        Route::get('/parent/children/{student}/evaluations/historique', [ParentController::class, 'showchildEvaluationsHistorique'])->name('parent.children.evaluations.historique');
+        Route::get('/parent/children/{student}/evaluations/historique', [EvaluationController::class, 'showChildEvaluationsHistorique'])->name('parent.children.evaluations.historique');
         
         // Rechercher dans l'historique d'un enfant par sourate ou date
-        Route::get('/parent/children/{student}/evaluations/historique/search', [ParentController::class, 'searchChildEvaluationsHistoriqueBySourateOrDate'])->name('parent.children.evaluations.historique.search');
+        Route::get('/parent/children/{student}/evaluations/historique/search', [EvaluationController::class, 'searchChildEvaluationsHistorique'])->name('parent.children.evaluations.historique.search');
         
         // Afficher les évaluations d'une Halaqa spécifique
-        Route::get('/parent/children/{student}/evaluations/{halaqa}', [ParentController::class, 'showchildEvaluations'])->name('parent.children.evaluations');
+        Route::get('/parent/children/{student}/evaluations/{halaqa}', [EvaluationController::class, 'showChildEvaluations'])->name('parent.children.evaluations');
         
         // Rechercher des évaluations dans une Halaqa spécifique
-        Route::get('/parent/children/{student}/evaluations/{halaqa}/search', [ParentController::class, 'searchChildEvaluationsBySourateOrDate'])->name('parent.children.evaluations.search');
+        Route::get('/parent/children/{student}/evaluations/{halaqa}/search', [EvaluationController::class, 'searchChildEvaluations'])->name('parent.children.evaluations.search');
         
         /*
          * ==========================================
@@ -128,10 +129,10 @@ Route::middleware(['auth', 'check.status'])->group(function () {
          */
 
         // Afficher l'historique des compétitions d'un enfant
-        Route::get('/parent/children/{student}/competitions', [ParentController::class, 'showchildCompetitions'])->name('parent.children.competitions');
+        Route::get('/parent/children/{student}/competitions', [ParticipationController::class, 'showChildCompetitions'])->name('parent.children.competitions');
         
         // Afficher le détail des participations d'un enfant pour une compétition
-        Route::get('/parent/children/{student}/competitions/{competition}', [ParentController::class, 'showchildParticipations'])->name('parent.children.participations');
+        Route::get('/parent/children/{student}/competitions/{competition}', [ParticipationController::class, 'showChildParticipations'])->name('parent.children.participations');
     });
 
     Route::middleware('role:cheikh')->group(function () {
@@ -152,10 +153,10 @@ Route::middleware(['auth', 'check.status'])->group(function () {
         Route::get('/cheikh/halaqas/{halaqa}', [CheikhController::class, 'showHalaqa'])->name('cheikh.halaqas.show');
         
         // Afficher l'historique des évaluations d'une Halaqa
-        Route::get('/cheikh/halaqas/{halaqa}/historique', [CheikhController::class, 'historiqueEvaluationsHalaqa'])->name('cheikh.halaqas.historique');
+        Route::get('/cheikh/halaqas/{halaqa}/historique', [EvaluationController::class, 'historiqueHalaqa'])->name('cheikh.halaqas.historique');
         
         // Rechercher dans l'historique d'une Halaqa
-        Route::get('/cheikh/halaqas/{halaqa}/historique/search', [CheikhController::class, 'searchByDateOrNomOrPrenom'])->name('cheikh.halaqas.search');
+        Route::get('/cheikh/halaqas/{halaqa}/historique/search', [EvaluationController::class, 'search'])->name('cheikh.halaqas.search');
         
         // Afficher la Halaqa actuelle du Cheikh
         Route::get('/cheikh/halaqa-actuelle', [HalaqaController::class, 'index'])->name('cheikh.current-halaqa');
@@ -167,19 +168,19 @@ Route::middleware(['auth', 'check.status'])->group(function () {
          */
 
         // Afficher l'historique d'un étudiant en particulier
-        Route::get('/cheikh/halaqas/{halaqa}/students/{student}/historique', [CheikhController::class, 'historiqueEvaluationsStudent'])->name('cheikh.students.historique');
+        Route::get('/cheikh/halaqas/{halaqa}/students/{student}/historique', [EvaluationController::class, 'historiqueStudent'])->name('cheikh.students.historique');
         
         // Mettre à jour le statut "Hifz" d'un étudiant
         Route::patch('/cheikh/halaqas/{halaqa}/students/{student}/hifz', [CheikhController::class, 'updateEtudiantHifz'])->name('cheikh.students.hifz.update');
         
         // Enregistrer une nouvelle évaluation
-        Route::post('/cheikh/evaluations', [CheikhController::class, 'storeEvaluation'])->name('cheikh.evaluations.store');
+        Route::post('/cheikh/evaluations', [EvaluationController::class, 'store'])->name('cheikh.evaluations.store');
         
         // Modifier une évaluation
-        Route::put('/cheikh/evaluations/{evaluation}', [CheikhController::class, 'updateEvaluation'])->name('cheikh.evaluations.update');
+        Route::put('/cheikh/evaluations/{evaluation}', [EvaluationController::class, 'update'])->name('cheikh.evaluations.update');
         
         // Supprimer une évaluation
-        Route::delete('/cheikh/evaluations/{evaluation}', [CheikhController::class, 'deleteEvaluation'])->name('cheikh.evaluations.delete');
+        Route::delete('/cheikh/evaluations/{evaluation}', [EvaluationController::class, 'destroy'])->name('cheikh.evaluations.delete');
         
         /*
          * =========================================
@@ -194,10 +195,10 @@ Route::middleware(['auth', 'check.status'])->group(function () {
         Route::get('/cheikh/participations', [ParticipationController::class, 'index'])->name('cheikh.participations');
         
         // Évaluer la participation d'un étudiant à une compétition
-        Route::patch('/cheikh/competitions/{competition}/students/{student}/evaluation', [CheikhController::class, 'evaluationStudentCompetition'])->name('cheikh.competitions.students.evaluation');
+        Route::patch('/cheikh/competitions/{competition}/students/{student}/evaluation', [ParticipationController::class, 'evaluateStudent'])->name('cheikh.competitions.students.evaluation');
         
         // Supprimer l'évaluation d'une compétition
-        Route::delete('/cheikh/competitions/{competition}/students/{student}/evaluation', [CheikhController::class, 'deleteEvaluationStudentCompetition'])->name('cheikh.competitions.students.evaluation.delete');
+        Route::delete('/cheikh/competitions/{competition}/students/{student}/evaluation', [ParticipationController::class, 'deleteEvaluation'])->name('cheikh.competitions.students.evaluation.delete');
         
         /*
          * =====================================================
@@ -245,29 +246,29 @@ Route::middleware(['auth', 'check.status'])->group(function () {
          */
 
         //Afficher le formulaire de creation d'un utilisateur
-        Route::get('/users/create', [AdminController::class, 'createUserPage'])->name('users.create');
+        Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 
         //Enregistrer un utilisateur
-        Route::post('/users', [AdminController::class, 'storeUser'])->name('users.store');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
         //Afficher le formulaire de modification d'un utilisateur
-        Route::get('/users/{user}/edit', [AdminController::class, 'editUserPage'])->name('users.edit');
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 
         //Modifie les infos d'un utilisateur
-        Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('users.update');
+        Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
         //Afficher tous les utilisateurs
-        Route::get('/users', [AdminController::class, 'index'])->name('users.index');
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
         //Modifier le statut d'un utilisateur
-        Route::patch('/users/{id}/statut', [AdminController::class, 'statusUser'])->name('users.statut');
+        Route::patch('/users/{id}/statut', [UserController::class, 'status'])->name('users.statut');
 
         //Supprimer un utilisateur
-        Route::delete('/users/{id}', [AdminController::class, 'deleteUser'])->name('users.destroy');
+        Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
         //Rechercher un utilisateur par son nom
-        Route::get('/users/search', [AdminController::class, 'searchUserByName'])->name('users.search');
-        Route::get('/users/filter', [AdminController::class, 'filterUsersByRole'])->name('users.filter');
+        Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
+        Route::get('/users/filter', [UserController::class, 'filter'])->name('users.filter');
 
 
         /*  

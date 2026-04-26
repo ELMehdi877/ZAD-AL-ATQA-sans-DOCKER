@@ -220,9 +220,10 @@
         </main>
     </div>
 
+    @include('components.confirm-modal')
     @yield('scripts')
     <script>
-        (function () {
+        document.addEventListener('DOMContentLoaded', function () {
             const layoutShell = document.getElementById('layout-shell');
             const toggleButton = document.getElementById('sidebar-toggle');
             const mobileToggleButton = document.getElementById('mobile-sidebar-toggle');
@@ -293,9 +294,8 @@
                     });
                 });
             }
-        })();
+        });
     </script>
-    @include('components.confirm-modal')
 </body>
 
 </html>

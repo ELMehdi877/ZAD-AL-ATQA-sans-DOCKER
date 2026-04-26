@@ -27,11 +27,17 @@
             (actionType === 'statut' ? 'bg-amber-600 hover:bg-amber-700' : 
             (actionType === 'default' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-rose-600 hover:bg-rose-700'));
 
+        // Capturer l'élément cible avant la fermeture de la portée (async)
+        const targetElement = event.currentTarget.closest('form') || event.currentTarget;
+
         // Valider l'action
         btn.onclick = function() {
             modal.classList.add('hidden');
-            const element = event.currentTarget.closest('form') || event.currentTarget;
-            element.tagName === 'FORM' ? element.submit() : (window.location.href = element.href);
+            if (targetElement.tagName === 'FORM') {
+                targetElement.submit();
+            } else {
+                window.location.href = targetElement.href;
+            }
         };
 
         // Afficher la modale
