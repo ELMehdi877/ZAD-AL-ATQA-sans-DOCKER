@@ -36,7 +36,7 @@
                     <span class="text-sm text-slate-400 font-medium">/ 10</span>
                 </div>
                 <div class="mt-3 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                    <div class="bg-amber-500 h-full rounded-full" @style(["width: " . (($participation->note_tajwid ?? 0) * 10) . "%"])></div>
+                    <div class="bg-amber-500 h-full rounded-full" style="width: {{ (($participation->note_tajwid ?? 0) * 10) }}%"></div>
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
                     <span class="text-sm text-slate-400 font-medium">/ 10</span>
                 </div>
                 <div class="mt-3 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                    <div class="bg-emerald-500 h-full rounded-full" @style(["width: " . (($participation->note_hifz ?? 0) * 10) . "%"])></div>
+                    <div class="bg-emerald-500 h-full rounded-full" style="width: {{ (($participation->note_hifz ?? 0) * 10) }}%"></div>
                 </div>
             </div>
         </div>
