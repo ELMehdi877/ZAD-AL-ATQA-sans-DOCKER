@@ -131,7 +131,7 @@
 
                     <div class="flex items-center justify-center mt-4">
                         @if (Route::has('password.request'))
-                            <a class="text-xs lg:text-sm text-gray-300 hover:text-white transition-colors underline decoration-gray-500 underline-offset-4 lg:underline-offset-4" href="{{ route('password.request') }}">
+                            <a class="text-xs lg:text-sm text-gray-300 hover:text-white transition-colors underline decoration-gray-500 underline-offset-4 lg:underline-offset-4" href="#">
                                 نسيت كلمة السر؟
                             </a>
                         @endif

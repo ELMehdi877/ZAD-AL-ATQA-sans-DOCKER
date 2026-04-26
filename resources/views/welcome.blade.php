@@ -49,8 +49,7 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="text-white hover:text-[#d4af37] font-semibold transition">Tableau de bord</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-white hover:text-[#d4af37] font-semibold transition text-[8px] md:text-sm">Connexion</a>
-                        <a href="{{ route('register') }}" class="bg-[#d4af37] hover:bg-[#b8952d] text-[#04371f] md:px-6 md:py-2.5 px-3 py-1.5 rounded-[9px] font-bold transition shadow-lg shadow-black/20 text-[8px] md:text-sm">S'inscrire</a>
+                        <a href="{{ route('login') }}" class="bg-[#d4af37] hover:bg-[#b8952d] text-[#04371f] md:px-6 md:py-2.5 px-3 py-1.5 rounded-[9px] font-bold transition shadow-lg shadow-black/20 text-[8px] md:text-sm">Connexion</a>
                     @endauth
                 </nav>
 
@@ -82,7 +81,7 @@
                         Rejoignez Zad Al Atqa, la plateforme de mémorisation du Coran qui allie tradition prophétique et outils modernes pour faciliter votre chemin vers Allah.
                     </p>
                     <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-                        <a href="{{ route('register') }}" class="bg-[#04371f] hover:bg-[#064d2c] text-white px-10 py-4 rounded-[12px] font-bold transition shadow-xl text-lg flex items-center justify-center gap-2">
+                        <a href="{{ route('login') }}" class="bg-[#04371f] hover:bg-[#064d2c] text-white px-10 py-4 rounded-[12px] font-bold transition shadow-xl text-lg flex items-center justify-center gap-2">
                             Commencer maintenant
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </a>
