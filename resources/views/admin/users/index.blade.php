@@ -73,7 +73,7 @@
                             <div class="flex flex-wrap gap-2">
                                 <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="rounded bg-blue-100 px-2 py-1 font-medium text-blue-700 hover:bg-blue-200">Modifier</a>
 
-                                <form method="POST" action="{{ route('users.statut', ['id' => $user->id]) }}" class="inline">
+                                <form method="POST" action="{{ route('users.statut', ['id' => $user->id]) }}" class="inline" onsubmit="return showCustomConfirm(event, 'Changer le statut de cet utilisateur ?', 'statut')">
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit" class="rounded bg-amber-100 px-2 py-1 font-medium text-amber-800 hover:bg-amber-200">Statut</button>
@@ -102,10 +102,7 @@
         document.querySelectorAll('.delete-form').forEach((form) => {
             form.addEventListener('submit', (event) => {
                 const userName = form.dataset.user || 'cet utilisateur';
-                const ok = window.confirm(`Supprimer ${userName} ?`);
-                if (!ok) {
-                    event.preventDefault();
-                }
+                showCustomConfirm(event, `Supprimer ${userName} ?`, 'delete');
             });
         });
     </script>

@@ -295,6 +295,7 @@
             }
         })();
     </script>
+    @include('components.confirm-modal')
 </body>
 
 </html>

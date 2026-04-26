@@ -60,10 +60,7 @@
         document.querySelectorAll('.delete-form').forEach((form) => {
             form.addEventListener('submit', (event) => {
                 const halaqaName = form.dataset.halaqa || 'cette halaqa';
-                const ok = window.confirm(`Supprimer ${halaqaName} ?`);
-                if (!ok) {
-                    event.preventDefault();
-                }
+                showCustomConfirm(event, `Supprimer ${halaqaName} ?`, 'delete');
             });
         });
     </script>

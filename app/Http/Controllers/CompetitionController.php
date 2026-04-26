@@ -29,7 +29,7 @@ class CompetitionController extends Controller
             $competitions = Competition::where('statut', 'active')
             ->orderBy('id', 'asc')
             ->get();
-            return view('student.competitions', compact('competitions'));
+            return view('student.competitions.index', compact('competitions'));
         }
     }
 

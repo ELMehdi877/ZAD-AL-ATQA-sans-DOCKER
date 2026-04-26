@@ -68,7 +68,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm" 
-                                                    onclick="return confirm('Êtes-vous sûr de vouloir annuler cette participation ?')">
+                                                    onclick="return showCustomConfirm(event, 'Êtes-vous sûr de vouloir annuler cette participation ?', 'annuler')">
                                                 Annuler
                                             </button>
                                         </form>

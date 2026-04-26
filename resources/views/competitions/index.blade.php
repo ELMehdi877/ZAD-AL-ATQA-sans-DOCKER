@@ -43,7 +43,7 @@
                                     <a href="{{ route('competitions.show', ['competition' => $competition->id]) }}" class="rounded-md border border-emerald-300 px-3 py-1.5 text-emerald-700 hover:bg-emerald-50">Voir</a>
                                     @if ($isAdmin)
                                       <a href="{{ route('competitions.edit', ['competition' => $competition->id]) }}" class="rounded-md border border-slate-300 px-3 py-1.5 hover:bg-slate-50">Modifier</a>
-                                      <form method="POST" action="{{ route('competitions.statut', ['competition' => $competition->id]) }}" onsubmit="return confirm('Changer le statut de cette competition ?')">
+                                      <form method="POST" action="{{ route('competitions.statut', ['competition' => $competition->id]) }}" onsubmit="return showCustomConfirm(event, 'Changer le statut de cette competition ?', 'statut')">
                                           @csrf
                                           @method('PATCH')
                                           <button type="submit" class="rounded-md border border-red-300 px-3 py-1.5 text-red-600 hover:bg-red-50">Statut</button>

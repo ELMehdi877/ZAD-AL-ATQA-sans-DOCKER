@@ -123,7 +123,7 @@
                                             Historique
                                         </a>
 
-                                        <form method="POST" action="{{ route('cheikh.evaluations.delete', $evaluation->id) }}" onsubmit="return confirm('Supprimer cette evaluation ?');">
+                                        <form method="POST" action="{{ route('cheikh.evaluations.delete', $evaluation->id) }}" onsubmit="return showCustomConfirm(event, 'Supprimer cette evaluation ?', 'delete');">
                                             @csrf
                                             @method('DELETE')
                                             <button

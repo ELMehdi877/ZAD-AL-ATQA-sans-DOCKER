@@ -42,7 +42,7 @@ class ParentController extends Controller
 
         $halaqas = $student->halaqas()->with('cheikh')->get();
 
-        return view('parent.child_halaqas', compact('student', 'halaqas'));
+        return view('parent.children.halaqas', compact('student', 'halaqas'));
     }
 
     public function showchildEvaluations(Student $student, Halaqa $halaqa)
@@ -60,7 +60,7 @@ class ParentController extends Controller
 
         $evaluationsByDay = $evaluations->groupBy(fn ($evaluation) => $evaluation->created_at->format('Y-m-d'));
 
-        return view('parent.child_evaluations', compact('student', 'halaqa', 'evaluationsByDay'));
+        return view('parent.children.evaluations', compact('student', 'halaqa', 'evaluationsByDay'));
     }
 
     public function showchildEvaluationsHistorique(Student $student)
@@ -77,7 +77,7 @@ class ParentController extends Controller
         
         $evaluationsByDay = $evaluations->groupBy(fn ($evaluation) => $evaluation->created_at->format('Y-m-d'));
 
-        return view('parent.child_evaluations_historique', compact('student', 'evaluationsByDay'));
+        return view('parent.children.evaluations_historique', compact('student', 'evaluationsByDay'));
     }
 
 
@@ -90,7 +90,7 @@ class ParentController extends Controller
 
         $competitions = $student->competitions()->withPivot('statut')->get();
 
-        return view('parent.child_competitions', compact('student', 'competitions'));
+        return view('parent.children.competitions', compact('student', 'competitions'));
     }
 
     public function showchildParticipations(Student $student,Competition $competition)
@@ -105,7 +105,7 @@ class ParentController extends Controller
             ->with('cheikh')
             ->first();
 
-        return view('parent.child_participations', compact('student', 'participation', 'competition'));
+        return view('parent.children.participations', compact('student', 'participation', 'competition'));
     }
 
     public function searchChildEvaluationsBySourateOrDate(Request $request, Student $student, Halaqa $halaqa )
@@ -143,7 +143,7 @@ class ParentController extends Controller
         $evaluationsByDay = $evaluations->groupBy(fn ($e) => $e->created_at->format('Y-m-d'));
 
 
-        return view('parent.child_evaluations', compact('student', 'halaqa', 'evaluationsByDay', 'date', 'du_sourate'));
+        return view('parent.children.evaluations', compact('student', 'halaqa', 'evaluationsByDay', 'date', 'du_sourate'));
 
     }
 
@@ -180,7 +180,7 @@ class ParentController extends Controller
 
         $evaluationsByDay = $evaluations->groupBy(fn ($e) => $e->created_at->format('Y-m-d'));
 
-        return view('parent.child_evaluations_historique', compact('student', 'evaluationsByDay', 'date', 'du_sourate'));
+        return view('parent.children.evaluations_historique', compact('student', 'evaluationsByDay', 'date', 'du_sourate'));
     
     }
 

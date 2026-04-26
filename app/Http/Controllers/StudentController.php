@@ -28,7 +28,7 @@ class StudentController extends Controller
         
         $participations = $student->competitions()->withPivot('statut')->get();
 
-        return view('student.participations', compact('participations'));
+        return view('student.participations.index', compact('participations'));
     }
 
     /**
@@ -38,7 +38,7 @@ class StudentController extends Controller
     {
         $competitions = Competition::where('statut', 'active')->get();
 
-        return view('student.competitions', compact('competitions'));
+        return view('student.competitions.index', compact('competitions'));
     }
 
 
