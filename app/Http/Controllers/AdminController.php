@@ -15,11 +15,29 @@ class AdminController extends Controller
      */
     public function index()
     {
+        // Statistiques globales des utilisateurs
         $usersCount = User::count();
+        $activeUsersCount = User::where('statut', 'active')->count();
+        $inactiveUsersCount = User::where('statut', 'inactive')->count();
+
+        // Statistiques par rôle
+        $cheilhsCount = User::where('role', 'cheikh')->count();
+        $studentsCount = Student::count();
+        $parentsCount = User::where('role', 'parent')->count();
+
+        // Statistiques des activités
         $halaqasCount = Halaqa::count();
         $competitionsCount = Competition::count();
-        $studentsCount = Student::count();
 
-        return view('admin.dashboard', compact('usersCount', 'halaqasCount', 'competitionsCount', 'studentsCount'));
+        return view('admin.dashboard', compact(
+            'usersCount', 
+            'activeUsersCount', 
+            'inactiveUsersCount', 
+            'cheilhsCount', 
+            'studentsCount', 
+            'parentsCount', 
+            'halaqasCount', 
+            'competitionsCount'
+        ));
     }
 }

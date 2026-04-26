@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Competition;
 use App\Models\Halaqa;
 use App\Models\Student;
-use App\Models\User;
+use App\Models\Evaluation;
+use App\Models\Participation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,17 +18,45 @@ class CheikhController extends Controller
      */
     public function index()
     {
-        $cheikhId = Auth::id();
-        $halaqasCount = Halaqa::where('cheikh_id', $cheikhId)->count();
+        $cheikh = Auth::user();
+        $cheikhId = $cheikh->id;
+
+        // Statistiques des Halaqas
+        $halaqas = Halaqa::where('cheikh_id', $cheikhId)->with('students')->get();
+        $halaqasCount = $halaqas->count();
         
-        $studentsCount = Student::whereHas('halaqas', function($query) use ($cheikhId) {
+        // Statistiques des Étudiants
+        $totalActiveStudents = Student::whereHas('halaqas', function($query) use ($cheikhId) {
             $query->where('cheikh_id', $cheikhId)->where('memberships.statut', 'active');
         })->count();
 
-        $evaluationsCount = \App\Models\Evaluation::where('cheikh_id', $cheikhId)->count();
-        $competitionsCount = Competition::where('statut', 'active')->count();
+        // Statistiques des Évaluations (Halaqa)
+        $evaluationsToday = Evaluation::where('cheikh_id', $cheikhId)
+            ->whereDate('created_at', now()->toDateString())
+            ->count();
+        
+        $evaluationsThisMonth = Evaluation::where('cheikh_id', $cheikhId)
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
 
-        return view('cheikh.dashboard', compact('halaqasCount', 'studentsCount', 'evaluationsCount', 'competitionsCount'));
+        // Statistiques des Compétitions
+        $competitionsEvaluated = Participation::where('cheikh_id', $cheikhId)
+            ->distinct('competition_id')
+            ->count();
+
+        $participationsEvaluated = Participation::where('cheikh_id', $cheikhId)->count();
+
+        return view('cheikh.dashboard', compact(
+            'cheikh',
+            'halaqas',
+            'halaqasCount', 
+            'totalActiveStudents', 
+            'evaluationsToday', 
+            'evaluationsThisMonth',
+            'competitionsEvaluated',
+            'participationsEvaluated'
+        ));
     }
 
     /**

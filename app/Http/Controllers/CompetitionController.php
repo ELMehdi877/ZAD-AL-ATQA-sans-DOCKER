@@ -28,9 +28,9 @@ class CompetitionController extends Controller
 
         $competitions = Competition::orderBy('id', 'asc')->get();
         
+        // Les admins et cheikhs partagent la même vue globale pour la liste
         $view = match($user?->role) {
-            'admin' => 'admin.competitions.index',
-            'cheikh' => 'cheikh.competitions.index',
+            'admin', 'cheikh' => 'competitions.index',
             default => abort(403)
         };
 
@@ -71,9 +71,9 @@ class CompetitionController extends Controller
             ->with('student.user')
             ->get();
 
+        // Les admins et cheikhs partagent la même vue globale pour les détails
         $view = match($user?->role) {
-            'admin' => 'admin.competitions.show',
-            'cheikh' => 'cheikh.competitions.show',
+            'admin', 'cheikh' => 'competitions.show',
             default => abort(403)
         };
 
