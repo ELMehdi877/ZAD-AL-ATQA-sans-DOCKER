@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateAdminRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Competition;
 use App\Models\Halaqa;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -137,9 +138,18 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($id);
 
-        if ($user->role === 'cheikh' && $user->halaqas()->count() > 0) {
+        if ($user->role === 'student' ) {
+            $student = Student::where('user_id', $user->id)->first();
+
+            if ($student && $student->halaqas()->exists()) {
+                return redirect()->route('users.index')
+                    ->with('error', 'Impossible de supprimer  ' . $user->nom . ', il est inscrit à des halaqas.');
+            }
+        }
+
+        if ($user->halaqas()->exists()) {
             return redirect()->route('users.index')
-                ->with('error', 'Impossible de supprimer ce cheikh, il a des halaqas associées.');
+                ->with('error', 'Impossible de supprimer  ' . $user->nom . ', il a des halaqas associées.');
         }
 
         $user->delete();
