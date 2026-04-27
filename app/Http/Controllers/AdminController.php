@@ -37,7 +37,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id', 'asc')->get();
+        $users = User::where('role', '!=', 'admin')->orderBy('id', 'asc')->get();
         return view('admin.users.index', compact('users'));
     }
         
@@ -60,7 +60,7 @@ class AdminController extends Controller
     {
         $data = $request->validated();
         $parentId = $data['parent_id'] ?? null;
-        $nombreHifz = $data['nombre_hifz'] ?? null;
+        $nombreHifz = $data['nombre_hifz'] ?? 0;
 
         unset($data['nombre_hifz']);
         unset($data['parent_id']);
@@ -101,7 +101,7 @@ class AdminController extends Controller
     {
         $data = $request->validated();
         $parentId = $data['parent_id'] ?? null;
-        $nombreHifz = $data['nombre_hifz'] ?? null;
+        $nombreHifz = $data['nombre_hifz'] ?? 0;
 
         unset($data['nombre_hifz']);
         unset($data['parent_id']);

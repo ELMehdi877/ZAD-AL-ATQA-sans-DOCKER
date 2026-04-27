@@ -31,7 +31,7 @@
                     <label for="role" class="mb-1 block text-sm font-medium">Filtrer par role</label>
                     <select id="role" name="role" required class="w-full rounded-lg border border-slate-300 px-3 py-2">
                         <option value="">-- choisir --</option>
-                        @foreach (['admin', 'cheikh', 'student', 'parent'] as $role)
+                        @foreach (['cheikh', 'student', 'parent'] as $role)
                             <option value="{{ $role }}" @selected(request('role') === $role)>{{ $role }}</option>
                         @endforeach
                     </select>
