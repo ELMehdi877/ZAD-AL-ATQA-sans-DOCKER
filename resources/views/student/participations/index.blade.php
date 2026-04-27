@@ -88,11 +88,9 @@
             </div>
         @else
             <!-- Message si aucune participation -->
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
-                <p class="text-blue-700">Vous n'avez pas encore participé à une compétition.</p>
-                <p class="text-blue-600 mt-2">
-                    <a href="{{ route('student.competitions') }}" class="font-bold hover:underline">Parcourez les compétitions disponibles →</a>
-                </p>
+            <div class="text-slate-600 text-lg">
+                <p class="rounded-xl bg-white p-6 shadow text-center">Vous n'avez pas encore participé à une compétition.</p>
+                
             </div>
         @endif
 @endsection
