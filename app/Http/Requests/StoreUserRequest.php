@@ -33,7 +33,7 @@ class StoreUserRequest extends FormRequest
                 'nullable',
                 Rule::exists('users', 'id')->where('role', 'parent'),
             ],
-            'telephone' => 'nullable|string|max:15',
+            'telephone' => 'nullable|string|unique:users,telephone|max:20',
             'nombre_hifz' => 'nullable|integer|min:0|max:60',
         ];
     }
