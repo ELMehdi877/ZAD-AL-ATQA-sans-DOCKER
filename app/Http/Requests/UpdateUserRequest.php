@@ -24,7 +24,7 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         // Récupère l'ID de l'utilisateur à mettre à jour
-        $userId = $this->route('user')->id ?? null;
+        $userId = $this->route('user')?->id ;
 
         return [
             'nom' => 'required|string|min:3|max:20',
@@ -37,10 +37,16 @@ class UpdateUserRequest extends FormRequest
             'password' => 'nullable|confirmed|min:8', // nullable si pas de changement
             'role' => 'required|in:admin,student,parent,cheikh',
             'parent_id' => [
-                'nullable',
+                'nullable', 
+                'integer',
                 Rule::exists('users', 'id')->where('role', 'parent'),
             ],
-            'telephone' => 'nullable|string|max:15',
+            'telephone' => [ 
+                'nullable', 
+                'string', 
+                Rule::unique("users", "telephone")->ignore($userId), 
+                'max:15' 
+                ],
             'nombre_hifz' => 'nullable|integer|min:0|max:60',
         ];
     }
