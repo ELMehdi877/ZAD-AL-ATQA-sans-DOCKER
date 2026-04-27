@@ -137,6 +137,11 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($id);
 
+        if ($user->role === 'cheikh' && $user->halaqas()->count() > 0) {
+            return redirect()->route('users.index')
+                ->with('error', 'Impossible de supprimer ce cheikh, il a des halaqas associées.');
+        }
+
         $user->delete();
 
         return redirect()->route('users.index')
